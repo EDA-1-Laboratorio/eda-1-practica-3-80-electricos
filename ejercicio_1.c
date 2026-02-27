@@ -296,7 +296,7 @@ int main(){
                 max1=j1.mano[i%2].valor;
             if(river[i%5].valor>max1)
                 max1=river[i%5].valor;
-            if(j2.mano[i%2].valor>max2)+
+            if(j2.mano[i%2].valor>max2)
                 max2=j2.mano[i%2].valor;
             if(river[i%5].valor>max2)
                 max2=river[i%5].valor;
