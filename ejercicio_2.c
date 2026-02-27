@@ -21,7 +21,7 @@ int main() {
     struct Pizzas pizzas [MAX];
     float total=0;
 
-    printf("---Pizzas 80 porciento eléctricos ---\n");
+    printf("---Pizzas 80 por ciento eléctricos ---\n");
     printf("\ntoppings disponibles:");
     printf("\nPeperoni");
     printf("\nQueso");
