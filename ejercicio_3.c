@@ -81,14 +81,14 @@ if (r1 == r2) {
        
         float angulo = 2 * acos(d / (2 * r1));
         return 2 * r1 * r1 * (angulo - sin(angulo));
-  
+}
 // area de la interseccion
       float ang1 = 2 * acos((d*d + r1*r1 - r2*r2) / (2*d*r1)); 
       float ang2 = 2 * acos((d*d + r2*r2 - r1*r1) / (2*d*r2));
       float parte1 = 0.5 * r1 * r1 * (ang1 - sin(ang1));
       float parte2 = 0.5 * r2 * r2 * (ang2 - sin(ang2));
   return parte1 + parte2;
-}
+
 }
 //Funcion para la entrada de datos para el circulo
 
