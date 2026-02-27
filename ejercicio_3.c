@@ -58,8 +58,6 @@ bool interseccion(circulo c1, circulo c2){
 
 // >Opcional< Funcion para calcular el area de interseccion
 
-//---------------------------------------------------------
-
 float area_i(circulo c1, circulo c2){
   if (!interseccion (c1, c2)){   //false
     return 0.0;
@@ -80,17 +78,16 @@ float area_i(circulo c1, circulo c2){
     }
 // caso especial: para circulos de mismo radio
 if (r1 == r2) {
-        // Fórmula simplificada para círculos del mismo radio
+       
         float angulo = 2 * acos(d / (2 * r1));
         return 2 * r1 * r1 * (angulo - sin(angulo));
   
 // area de la interseccion
-      float parte1 = r1 * r1 * acos((d*d + r1*r1 - r2*r2) / (2*d*r1)); 
-      float parte2 = r2 * r2 * acos((d*d + r2*r2 - r1*r1) / (2*d*r2));
-      float parte3 = 0.5 * sqrt((-d + r1 + r2) * (d + r1 - r2) * (d - r1 + r2) * (d + r1 + r2));
-      return parte1 + parte2 - parte3;
-
-  
+      float ang1 = 2 * acos((d*d + r1*r1 - r2*r2) / (2*d*r1)); 
+      float ang2 = 2 * acos((d*d + r2*r2 - r1*r1) / (2*d*r2));
+      float parte1 = 0.5 * r1 * r1 * (ang1 - sin(ang1));
+      float parte2 = 0.5 * r2 * r2 * (ang2 - sin(ang2));
+  return parte1 + parte2;
 }
 }
 //Funcion para la entrada de datos para el circulo
