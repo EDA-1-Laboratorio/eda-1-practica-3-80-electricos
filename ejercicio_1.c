@@ -150,11 +150,12 @@ int evaluarMano(Carta mano[], Carta river[]){
         return 2;         // Un par
     else {
         // Carta más alta
-        int max=0;
+        /*int max=0;
         for(int i=0;i<7;i++) 
             if(todas[i].valor>max) 
                 max=todas[i].valor;
-            return max; // aquí devolvemos la carta más alta para desempates
+            return max;*/ // aquí devolvemos la carta más alta para desempates
+        return 1;
     }
 }
 
@@ -288,8 +289,23 @@ int main(){
         printf("Jugador 1 gana. \n");
     else if(score2>score1)
         printf("Jugador 2 gana.\n");
-    else  
-        printf("Empate. \n");
+    else{
+        int max1=0,max2=0;
+        for(int i=0;i<7;i++){
+            if(j1.mano[i%2].valor>max1)
+                max1=j1.mano[i%2].valor;
+            if(river[i%5].valor>max1)
+                max1=river[i%5].valor;
+            if(j2.mano[i%2].valor>max2)+
+                max2=j2.mano[i%2].valor;
+            if(river[i%5].valor>max2)
+                max2=river[i%5].valor;
+        }
+        if(max1>max2)
+            printf("Jugador 1 gana por carta mas alta.\n");
+        else
+            printf("Jugador 2 gana por carta mas alta.\n");
+    }  
     
     return 0;
 }
