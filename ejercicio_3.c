@@ -60,6 +60,39 @@ bool interseccion(circulo c1, circulo c2){
 
 //---------------------------------------------------------
 
+float area_i(circulo c1, circulo c2){
+  if (!interseccion (c1, c2)){   //false
+    return 0.0;
+  }
+
+  float d = distancia_centros(c1, c2);
+  float r1 = c1.radio;
+  float r2 = c2.radio;
+  
+// para círculos concéntricos
+    if (d == 0) {
+        float r_menor = (r1 < r2) ? r1 : r2;
+        return PI * r_menor * r_menor;
+    }
+// para un círculo dentro del otro
+    if (d + fmin(r1, r2) <= fmax(r1, r2)) {
+        return PI * pow(fmin(r1, r2), 2);
+    }
+// caso especial: para circulos de mismo radio
+if (r1 == r2) {
+        // Fórmula simplificada para círculos del mismo radio
+        float angulo = 2 * acos(d / (2 * r1));
+        return 2 * r1 * r1 * (angulo - sin(angulo));
+  
+// area de la interseccion
+      float parte1 = r1 * r1 * acos((d*d + r1*r1 - r2*r2) / (2*d*r1)); 
+      float parte2 = r2 * r2 * acos((d*d + r2*r2 - r1*r1) / (2*d*r2));
+      float parte3 = 0.5 * sqrt((-d + r1 + r2) * (d + r1 - r2) * (d - r1 + r2) * (d + r1 + r2));
+      return parte1 + parte2 - parte3;
+
+  
+}
+}
 //Funcion para la entrada de datos para el circulo
 
 circulo leer_c (int num){
@@ -118,6 +151,8 @@ circulo circulo1, circulo2;
 
   if (interseccion(circulo1, circulo2)) {
         printf("\n✓ Los círculos tienen al menos un punto de intersección.\n");
+        float area = area_i(circulo1, circulo2);
+            printf("  Área: %.2f unidades cuadradas\n", area);
 } else {
         printf("\n✗ Los círculos no tienen puntos de intersección.\n");
     }
