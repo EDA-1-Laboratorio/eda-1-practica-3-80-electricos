@@ -96,21 +96,26 @@ int evaluarMano(Carta mano[], Carta river[]){
             poker=1;
     }
 
-    // Detectar corridas
-    int corrida=0;
-    for(int start=1;start<=9;start++){
-        int consecutivas=0;
-        for(int k=0;k<5;k++){
-            if(counts[start+k]>0) 
-                consecutivas++;
+    // Detectar corridas V2.0
+    int corrida=0; 
+    int valores[14]={0}; 
+    for(int i=0;i<7;i++) 
+        valores[todas[i].valor]=1;
+    for(int start=1;start<=9;start++){ 
+        int consecutivas=0; 
+        for(int k=0;k<5;k++){ 
+            if(valores[start+k]) 
+            consecutivas++; 
         }
-        if(consecutivas==5) 
-            corrida=1;
-    }
-    // Caso especial: A-10-11-12-13
-    if(counts[1]>0 && counts[10]>0 && counts[11]>0 && counts[12]>0 && counts[13]>0)
-        corrida=1;
-
+        if(consecutivas==5){ 
+            corrida = 1; 
+            break; 
+        } 
+    } 
+    // Caso especial: A-10-11-12-13 
+    if(valores[1] && valores[10] && valores[11] && valores[12] && valores[13]) 
+        corrida = 1;
+    
     // Detectar color
     int color=0;
     for(int p=0;p<4;p++) 
