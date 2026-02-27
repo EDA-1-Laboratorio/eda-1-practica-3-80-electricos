@@ -20,7 +20,7 @@ int main() {
     struct Pizzas pizzas [MAX];
     float total=0;
 
-    printf("---Pizzas NOMBRE---\n");
+    printf("---Pizzas 80% eléctricos ---\n");
     printf("¿Cuántas pizzas desea ordenar? ");
     scanf("%d", &n);
 
