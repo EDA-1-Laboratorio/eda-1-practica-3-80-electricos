@@ -98,5 +98,67 @@ int main(){
     }
 
     //Segunda Ronda
+    printf("\n--- Segunda Ronda ---\n"); 
+    for(int i=0;i<3;i++) 
+        river[i] = baraja[pos++]; 
+    printf("River: "); 
+    for(int i=0;i<3;i++){ 
+        mostrarCarta(river[i]); 
+        printf(" | "); 
+    }
+
+    j1.activo=preguntajugador(1);
+    j2.activo=preguntajugador(2);
+
+    if(!j1.activo){
+        printf("\nJugador 2 gana por retiro.\n");
+        return 0;
+    }
+    if(!j2.activo){
+        printf("\nJugador 1 gana por retiro.\n");
+        return 0;
+    }
+
+    //Tercera Ronda
+    printf("\n--- Tercera Ronda ---\n");
+    river[3]=baraja[pos++];
+    printf("River: ");
+    for(int i=0;i<4;i++){ 
+        mostrarCarta(river[i]); 
+        printf(" | "); 
+    }
+
+    j1.activo=preguntajugador(1);
+    j2.activo=preguntajugador(2);
+
+    if(!j1.activo){
+        printf("\nJugador 2 gana por retiro.\n");
+        return 0;
+    }
+    if(!j2.activo){
+        printf("\nJugador 1 gana por retiro.\n");
+        return 0;
+    }
+
+    //Cuarta Ronda
+    printf("\n--- Cuarta Ronda ---\n");
+    river[4]=baraja[pos++];
+    printf("River final: ");
+    for(int i=0;i<5;i++){
+        mostrarCarta(river[i]); 
+        printf(" | ");
+    }
+
+    //Evaluación final (Casi)
+    int score1=evaluarMano(j1.mano,river);
+    int score2=evaluarMano(j2.mano,river);
+    printf("\nEvaluación final:\nJugador 1 = %d\nJugador 2 = %d\n",score1,score2);
+    if(score1>score2)
+        printf("Jugador 1 gana. \n");
+    else if(score2>score1)
+        printf("Jugador 2 gana.\n");
+    else  
+        printf("Empate. \n");
     
+    return 0;
 }
