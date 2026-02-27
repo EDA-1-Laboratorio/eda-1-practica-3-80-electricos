@@ -36,7 +36,8 @@ void barajar(Carta baraja[]){
     for(int i=NUM_CARTAS-1;i>0;i--){
         int j=rand()%(i+1);
         Carta temp=baraja[i];
-        baraja[i]=temp;
+        baraja[i]=baraja[j];
+        baraja[j]=temp;
     }
 }
 
