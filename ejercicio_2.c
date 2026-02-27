@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 #define MAX 20 //maximo de pizzas a ordenar
 
@@ -21,7 +22,19 @@ int main() {
     float total=0;
 
     printf("---Pizzas 80% eléctricos ---\n");
-    printf("¿Cuántas pizzas desea ordenar? ");
+    printf("\ntoppings disponibles:");
+    printf("\nPeperoni");
+    printf("\nQueso");
+    printf("\nCarne");
+    printf("\nChampiñones");
+    printf("\nMorrón");
+    printf("\nPiña");
+    printf("\nPapas");
+    printf("\nPollo");
+    printf("\nLonganiza");
+    printf("\nPeperoni");
+    printf("\nRecuerde la promoción, 2x1 al comprar dos pizzas del mismo tamaño"); 
+    printf("\n¿Cuántas pizzas desea ordenar? ");
     scanf("%d", &n);
 
     if (n>MAX){
@@ -34,7 +47,7 @@ int main() {
 
         printf("\n--- Pizza %d ---\n", i + 1);
 
-        printf("Radio de la pizza: ");
+        printf("Radio de la pizza(cm): ");
         scanf("%f", &pizzas[i].radio);
 
         printf("Cantidad de Ingredientes: ");
@@ -56,18 +69,50 @@ int main() {
         );
     }
 
-    // Calcular total inicial
-    for (int i = 0; i < n; i++) {
-        total += pizzas[i].precio;
+    // Aplicar promoción 2x1
+        int aplicada[MAX] = {0};  
+
+         for (int i = 0; i < n; i++) {
+
+          if (aplicada[i]) continue; 
+
+        int pareja = -1;
+
+    // Buscar otra pizza del mismo tamaño
+        for (int j = i + 1; j < n; j++) {
+        if (!aplicada[j] && pizzas[i].radio == pizzas[j].radio) {
+            pareja = j;
+            break;
+        }
     }
 
-    // Imprimir ticket
+         if (pareja != -1) {
+        // Se encontró pareja → 2x1
+        total += pizzas[i].precio;  // solo se paga una
+        aplicada[i] = 1;
+        aplicada[pareja] = 1;
+        
+      
+        
+    } else {
+        // No hay pareja → se paga normal
+        total += pizzas[i].precio;
+        aplicada[i] = 1;
+        
+    }
+}
     printf("\n================ TICKET ================\n");
-
- 
-
+   for (int i = 0; i < n; i++) {
+    printf("Pizza %d - Radio: %.2f cm - Precio: $%.2f", i+1, pizzas[i].radio, pizzas[i].precio);
+    // Si tuvo 2x1
+    if (aplicada[i] && i+1 < n && pizzas[i].radio == pizzas[i+1].radio) {
+        printf(" (2x1 aplicado)");
+    }
+    printf("\n");
+}
     printf("\nTOTAL A PAGAR: $%.2f\n", total);
     printf("========================================\n");
 
+   
     return 0;
 }
