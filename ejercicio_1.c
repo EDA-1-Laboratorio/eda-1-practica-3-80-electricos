@@ -56,40 +56,56 @@ int preguntajugador(int jugador){
 // Evaluación completa de manos con jerarquía
 int evaluarMano(Carta mano[], Carta river[]){
     Carta todas[7];
-    for(int i=0;i<2;i++) todas[i]=mano[i];
-    for(int i=0;i<5;i++) todas[i+2]=river[i];
+    for(int i=0;i<2;i++) 
+        todas[i]=mano[i];
+    for(int i=0;i<5;i++) 
+        todas[i+2]=river[i];
 
     // Contar valores
     int counts[14]={0};
-    for(int i=0;i<7;i++) counts[todas[i].valor]++;
+    for(int i=0;i<7;i++) 
+        counts[todas[i].valor]++;
 
     // Contar palos
     int palos[4]={0}; // T,P,C,D
     for(int i=0;i<7;i++){
         switch(todas[i].palo){
-            case 'T': palos[0]++; break;
-            case 'P': palos[1]++; break;
-            case 'C': palos[2]++; break;
-            case 'D': palos[3]++; break;
+            case 'T': 
+                palos[0]++; 
+                break;
+            case 'P': 
+                palos[1]++; 
+                break;
+            case 'C': 
+                palos[2]++; 
+                break;
+            case 'D': 
+                palos[3]++; 
+                break;
         }
     }
 
     // Detectar repeticiones
-    int pares=0, tercia=0, poker=0;
-    for(int v=1; v<=13; v++){
-        if(counts[v]==2) pares++;
-        if(counts[v]==3) tercia++;
-        if(counts[v]==4) poker=1;
+    int pares=0,tercia=0,poker=0;
+    for(int v=1;v<=13;v++){
+        if(counts[v]==2) 
+            pares++;
+        if(counts[v]==3) 
+            tercia++;
+        if(counts[v]==4) 
+            poker=1;
     }
 
     // Detectar corridas
     int corrida=0;
-    for(int start=1; start<=9; start++){
+    for(int start=1;start<=9;start++){
         int consecutivas=0;
         for(int k=0;k<5;k++){
-            if(counts[start+k]>0) consecutivas++;
+            if(counts[start+k]>0) 
+                consecutivas++;
         }
-        if(consecutivas==5) corrida=1;
+        if(consecutivas==5) 
+            corrida=1;
     }
     // Caso especial: A-10-11-12-13
     if(counts[1]>0 && counts[10]>0 && counts[11]>0 && counts[12]>0 && counts[13]>0)
@@ -97,31 +113,81 @@ int evaluarMano(Carta mano[], Carta river[]){
 
     // Detectar color
     int color=0;
-    for(int p=0;p<4;p++) if(palos[p]>=5) color=1;
+    for(int p=0;p<4;p++) 
+        if(palos[p]>=5) 
+            color=1;
 
     // Corrida de color y corrida real
-    int corridaColor=0, corridaReal=0;
-    if(color && corrida) corridaColor=1;
+    int corridaColor=0,corridaReal=0;
+    if(color && corrida) 
+        corridaColor=1;
     if(color && counts[1]>0 && counts[10]>0 && counts[11]>0 && counts[12]>0 && counts[13]>0)
         corridaReal=1;
 
     // Jerarquía
-    if(corridaReal) return 10;          // Corrida real
-    else if(corridaColor) return 9;     // Corrida de color
-    else if(poker) return 8;            // Póker
-    else if(tercia && pares>0) return 7;// Full House
-    else if(color) return 6;            // Color
-    else if(corrida) return 5;          // Corrida
-    else if(tercia) return 4;           // Tercia
-    else if(pares>=2) return 3;         // Dos pares
-    else if(pares==1) return 2;         // Un par
+    if(corridaReal) 
+        return 10;          // Corrida real
+    else if(corridaColor) 
+        return 9;     // Corrida de color
+    else if(poker) 
+        return 8;            // Póker
+    else if(tercia && pares>0) 
+        return 7;// Full House
+    else if(color) 
+        return 6;            // Color
+    else if(corrida) 
+        return 5;          // Corrida
+    else if(tercia) 
+        return 4;           // Tercia
+    else if(pares>=2) 
+        return 3;         // Dos pares
+    else if(pares==1) 
+        return 2;         // Un par
     else {
         // Carta más alta
         int max=0;
-        for(int i=0;i<7;i++) if(todas[i].valor>max) max=todas[i].valor;
-        return max; // aquí devolvemos la carta más alta para desempates
+        for(int i=0;i<7;i++) 
+            if(todas[i].valor>max) 
+                max=todas[i].valor;
+            return max; // aquí devolvemos la carta más alta para desempates
     }
 }
+
+void mostrarMano(int score,int jugador){
+    printf("Jugador %d = ",jugador);
+    switch(score){
+        case 10: 
+            printf("Corrida Real\n"); 
+            break;
+        case 9: 
+            printf("Corrida de Color\n"); 
+            break;
+        case 8: 
+            printf("Póker\n"); 
+            break;
+        case 7: 
+            printf("Full House\n"); 
+            break;
+        case 6: 
+            printf("Color\n"); 
+            break;
+        case 5: 
+            printf("Corrida\n"); 
+            break;
+        case 4: 
+            printf("Tercia\n"); 
+            break;
+        case 3: 
+            printf("Dos Pares\n"); 
+            break;
+        case 2: 
+            printf("Un Par\n"); 
+            break;
+        default: 
+            printf("Carta más alta (%d)\n", score); break;
+    }
+}
+
 
 //Programa Principal
 int main(){
@@ -207,10 +273,12 @@ int main(){
         printf(" | ");
     }
 
-    //Evaluación final (Casi)
+    //Evaluación final
     int score1=evaluarMano(j1.mano,river);
     int score2=evaluarMano(j2.mano,river);
-    printf("\nEvaluación final:\nJugador 1 = %d\nJugador 2 = %d\n",score1,score2);
+    printf("\nEvaluación final:\n");
+    mostrarMano(score1,1);
+    mostrarMano(score2,2);
     if(score1>score2)
         printf("Jugador 1 gana. \n");
     else if(score2>score1)
