@@ -41,7 +41,7 @@ void barajar(Carta baraja[]){
 }
 
 void mostrarCarta(Carta c){
-    char*valores[]={"As","2","3","4","5","6","7","8","9","10","J","Q","K"};
+    const char*valores[]={"As","2","3","4","5","6","7","8","9","10","J","Q","K"};
     printf("%s de %c",valores[c.valor-1],c.palo);
 }
 
