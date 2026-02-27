@@ -150,11 +150,11 @@ circulo circulo1, circulo2;
     imprimir_circulo(circulo2, 2);
 
   if (interseccion(circulo1, circulo2)) {
-        printf("\n✓ Los círculos tienen al menos un punto de intersección.\n");
+        printf("\n Los círculos tienen al menos un punto de intersección.\n");
         float area = area_i(circulo1, circulo2);
             printf("  Área: %.2f unidades cuadradas\n", area);
 } else {
-        printf("\n✗ Los círculos no tienen puntos de intersección.\n");
+        printf("\n Los círculos no tienen puntos de intersección.\n");
     }
 
 return 0;
